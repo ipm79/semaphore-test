@@ -1,0 +1,7 @@
+---
+hosts: testtarget
+tasks:
+  - name: Testtask
+    file:
+      state: present
+      path: /home/ansible/helloworld.txt
