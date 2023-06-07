@@ -5,3 +5,22 @@
       file:
         state: touch
         path: /home/ansible/helloworld.txt
+
+    - name: Check {{ vserver }}
+      netapp.ontap.na_ontap_info:
+        hostname: "{{ netapp_login.hostname }}"
+        username: "{{ netapp_login.username }}"
+        password: "{{ netapp_login.password }}"
+        https: "{{ netapp_login.https }}"
+        validate_certs: "{{ netapp_login.validate_certs }}"
+
+        gather_subset: "cifs_server_info"
+        vserver: "{{ vserver }}"
+      register: ontap_info
+
+    - name: DEBUG ontap_info
+      tags:
+      - debug
+      debug:
+        var: ontap_info.ontap_info.cifs_server_info
+      when: ontap_info.ontap_info.cifs_server_info != None
