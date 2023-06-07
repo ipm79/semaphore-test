@@ -3,5 +3,5 @@
   tasks:
     - name: Testtask
       file:
-        state: file
+        state: touch
         path: /home/ansible/helloworld.txt
